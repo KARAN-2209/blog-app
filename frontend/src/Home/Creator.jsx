@@ -1,46 +1,40 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import API from "../services/api";
 
 function Creator() {
   const [admin, setAdmin] = useState([]);
-  console.log(admin);
+
   useEffect(() => {
     const fetchAdmins = async () => {
-      const { data } = await axios.get(
-        "http://localhost:4001/api/users/admins",
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(data.admins);
-      setAdmin(data.admins);
+      try {
+        const { data } = await API.get("/api/users/admins");
+        setAdmin(data?.admins || []);
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchAdmins();
   }, []);
+
   return (
-    <div className=" container mx-auto p-4">
+    <div className="container mx-auto p-4">
       <h1 className="text-2xl font-semibold mb-6">Popular Creators</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 rounded-full my-5">
-        {admin && admin.length > 0 ? (
-          admin.slice(0, 4).map((element) => {
-            return (
-              <div key={element._id}>
-                <div className="">
-                  <img
-                    src={element.photo.url}
-                    alt="blog"
-                    className="md:w-56 md:h-56 object-cover border border-black rounded-full items-center "
-                  />
-                  <div className="text-center md:ml-[-130px]">
-                    <p>{element.name}</p>
-                    <p className="text-gray-600 text-xs">{element.role}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 my-5">
+        {admin?.length > 0 ? (
+          admin.slice(0, 4).map((element) => (
+            <div key={element._id} className="text-center">
+              <img
+                src={element?.photo?.url || "/default.png"}
+                alt="creator"
+                className="w-40 h-40 object-cover border rounded-full mx-auto"
+              />
+              <p>{element?.name}</p>
+              <p className="text-gray-600 text-xs">{element?.role}</p>
+            </div>
+          ))
         ) : (
-          <div></div>
+          <p>No creators available</p>
         )}
       </div>
     </div>

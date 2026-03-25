@@ -1,11 +1,11 @@
-import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import API from "../services/api"; // ✅ use central API
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [blogs, setBlogs] = useState();
-  const [profile, setProfile] = useState();
+  const [blogs, setBlogs] = useState([]); // ✅ safe default
+  const [profile, setProfile] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -13,39 +13,34 @@ export const AuthProvider = ({ children }) => {
       try {
         const token = localStorage.getItem("jwt");
 
-        if (token) {
-          const { data } = await axios.get(
-            "http://localhost:4001/api/users/my-profile",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+        if (!token) return;
 
-          setProfile(data.user);
-          setIsAuthenticated(true);
-        }
+        const { data } = await API.get("/api/users/my-profile");
+
+        setProfile(data?.user);
+        setIsAuthenticated(true);
       } catch (error) {
         console.log(error);
+
+        // ✅ if token invalid → force logout
+        localStorage.removeItem("jwt");
+        setProfile(null);
+        setIsAuthenticated(false);
       }
     };
 
     const fetchBlogs = async () => {
       try {
-        const { data } = await axios.get(
-          "http://localhost:4001/api/blogs/all-blogs",
-          { withCredentials: true }
-        );
-        console.log(data);
-        setBlogs(data);
+        const { data } = await API.get("/api/blogs/all-blogs");
+
+        setBlogs(data || []);
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchBlogs();
     fetchProfile();
+    fetchBlogs();
   }, []);
 
   return (
