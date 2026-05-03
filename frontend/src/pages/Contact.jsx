@@ -92,25 +92,6 @@ function Contact() {
                 </div>
               </form>
             </div>
-            <div className="w-full md:w-1/2 md:pl-4">
-              <h3 className="text-lg font-medium text-gray-700 mb-4">
-                Contact Information
-              </h3>
-              <ul className="space-y-4">
-                <li className="flex items-center space-x-2">
-                  <FaPhone className="text-red-500" />
-                  <span>+91 9876543210</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <FaEnvelope className="text-pink-500" />
-                  <span>help@learncoding.com</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <FaMapMarkerAlt className="text-green-500" />
-                  <span>Delhi, NCR, India</span>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
