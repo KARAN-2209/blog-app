@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <>
       <footer className="border py-10">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
           <div className=" text-center md:text-start">
             <h2 className="text-lg font-semibold mb-4">Products</h2>
             <ul className="space-y-2">
