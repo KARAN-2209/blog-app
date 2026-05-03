@@ -50,47 +50,6 @@ const Footer = () => {
           </div>
 
           <div className=" text-center md:text-start">
-            <h2 className="text-lg font-semibold mb-4">Comparison</h2>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  DhiWise vs Anima
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  DhiWise vs Appsmith
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  DhiWise vs FlutterFlow
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  DhiWise vs Monday Hero
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  DhiWise vs Retool
-                </a>
-              </li>
-
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  DhiWise vs Bubble
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  DhiWise vs Figma Dev Mode
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className=" text-center md:text-start">
             <h2 className="text-lg font-semibold mb-4">Company</h2>
             <ul className="space-y-2">
               <li>
@@ -125,9 +84,6 @@ const Footer = () => {
       <div className=" container mx-auto  flex flex-col md:flex-row justify-between items-center">
         <div className="text-xl font-semibold hidden md:flex">
           Cilli<span className="text-blue-500 font-bold">Blog</span>
-        </div>
-        <div className="text-gray-400 text-sm hidden md:flex">
-          <p>&copy; 2024 DhiWise PVT. LTD. All rights reserved</p>
         </div>
         <div className="mt-4 md:mt-0 flex space-x-4">
           <a href="#">
