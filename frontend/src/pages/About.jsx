@@ -2,7 +2,7 @@ import React from "react";
 
 function About() {
   return (
-    <div style={{ paddingLeft: "3rem", paddingRight: "3rem" }}>
+    <div style={{ padding: "5 rem 15rem" }}>
       <h2 className="font-semibold text-blue-800 text-xl">
         Mission
       </h2>
