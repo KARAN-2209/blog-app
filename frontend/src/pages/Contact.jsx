@@ -1,5 +1,4 @@
 import React from "react";
-import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -8,92 +7,95 @@ function Contact() {
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
     const userInfo = {
-      access_key: "c660c9ce-c6f9-41f7-aa0f-8a24ea887b94",
+      access_key: import.meta.env.VITE_ACCESS_KEY,
       name: data.username,
       email: data.email,
       message: data.message,
     };
+
     try {
-      await axios.post("https://api.web3forms.com/submit", userInfo);
-      toast.success("Message sent successfully");
+      const response = await axios.post(
+        "https://api.web3forms.com/submit",
+        userInfo
+      );
+
+      if (response.data.success) {
+        toast.success("Message sent successfully");
+        reset();
+      }
     } catch (error) {
       toast.error("An error occurred");
     }
   };
+
   return (
-    <div>
-      <div className="bg-gray-50 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl w-full space-y-8 bg-white p-10 rounded-lg shadow-lg">
-          <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-gray-900">
-              Contact Us
-            </h2>
-          </div>
-          <div className="flex flex-col md:flex-row justify-between">
-            <div className="w-full md:w-1/2 mb-8 md:mb-0 md:pr-4">
-              <h3 className="text-lg font-medium text-gray-700 mb-4">
-                Send us a message
-              </h3>
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div>
-                  <input
-                    type="text"
-                    name="username"
-                    placeholder="Your Name"
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                    {...register("username", { required: true })}
-                  />
-                  {errors.username && (
-                    <span className="text-sm text-red-500 font-semibold">
-                      This field is required
-                    </span>
-                  )}
-                </div>
-                <div>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                    {...register("email", { required: true })}
-                  />
-                  {errors.email && (
-                    <span className="text-sm text-red-500 font-semibold">
-                      This field is required
-                    </span>
-                  )}
-                </div>
-                <div>
-                  <textarea
-                    name="message"
-                    placeholder="Your Message"
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                    {...register("message", { required: true })}
-                  />
-                  {errors.message && (
-                    <span className="text-sm text-red-500 font-semibold">
-                      This field is required
-                    </span>
-                  )}
-                </div>
-                <div>
-                  <button
-                    type="submit"
-                    className="w-full bg-black text-white px-4 py-2 rounded-lg hover:bg-yellow-600 duration-300 "
-                  >
-                    Send Message
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+    <div className="bg-gray-50 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl w-full bg-white p-10 rounded-lg shadow-lg">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-extrabold text-gray-900">
+            Contact Us
+          </h2>
+          <p className="mt-2 text-gray-600">
+            Send us your message and we’ll get back to you soon.
+          </p>
         </div>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          <div>
+            <input
+              type="text"
+              placeholder="Your Name"
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              {...register("username", { required: true })}
+            />
+            {errors.username && (
+              <span className="text-sm text-red-500 font-semibold">
+                Name is required
+              </span>
+            )}
+          </div>
+
+          <div>
+            <input
+              type="email"
+              placeholder="Your Email"
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              {...register("email", { required: true })}
+            />
+            {errors.email && (
+              <span className="text-sm text-red-500 font-semibold">
+                Email is required
+              </span>
+            )}
+          </div>
+
+          <div>
+            <textarea
+              rows="5"
+              placeholder="Your Message"
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              {...register("message", { required: true })}
+            />
+            {errors.message && (
+              <span className="text-sm text-red-500 font-semibold">
+                Message is required
+              </span>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-black text-white px-4 py-3 rounded-lg hover:bg-yellow-600 duration-300"
+          >
+            Send Message
+          </button>
+        </form>
       </div>
     </div>
   );
